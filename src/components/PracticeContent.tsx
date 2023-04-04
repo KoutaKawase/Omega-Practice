@@ -1,17 +1,21 @@
+import { StatusIndex, usePracticeState } from '../stores/practiceStore';
 import { RowContent } from './RowContent';
 
 export function PracticeContent() {
+  const practiceState = usePracticeState((state) => state.practiceStatus);
+
   return (
     <div className="flex flex-col items-center pt-10 ">
       <div>
-        <RowContent job="gunbreaker" />
-        <RowContent job="darkknight" />
-        <RowContent job="whitemage" />
-        <RowContent job="scholar" />
-        <RowContent job="monk" />
-        <RowContent job="reaper" />
-        <RowContent job="dancer" />
-        <RowContent job="summoner" />
+        {practiceState.map((status, index) => {
+          return (
+            <RowContent
+              status={status}
+              key={status.job}
+              index={index as StatusIndex}
+            />
+          );
+        })}
       </div>
 
       <div className="mt-20">

@@ -1,8 +1,18 @@
-export function Marker() {
+import { MarkerType } from '../stores/practiceStore';
+
+interface Props {
+  marker: MarkerType;
+}
+
+export function Marker({ marker }: Props) {
   return (
-    <div className="h-10">
+    <div className="h-10 w-10">
       <img
-        src="https://cdn.raidplan.io/game/ffxiv/mark/mark_tar1.png"
+        src={
+          marker === 'none'
+            ? ''
+            : `https://cdn.raidplan.io/game/ffxiv/mark/mark_${marker}.png`
+        }
         className="h-full max-w-full"
       />
     </div>

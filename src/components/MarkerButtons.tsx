@@ -1,10 +1,15 @@
+import { StatusIndex } from '../stores/practiceStore';
 import { AttackMarkerButton } from './AttackMarkerButton';
 import { ChainMarkerButton } from './ChainMarkerButton';
 
-export function MarkerButtons() {
+interface Props {
+  index: StatusIndex;
+}
+
+export function MarkerButtons({ index }: Props) {
   return (
     <div className="ml-2 flex space-x-5">
-      <AttackMarkerButton />
+      <AttackMarkerButton index={index} />
       <ChainMarkerButton />
     </div>
   );

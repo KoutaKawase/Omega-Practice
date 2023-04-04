@@ -1,6 +1,15 @@
 import { create } from 'zustand';
 
-interface Status {
+export type MarkerType =
+  | 'none'
+  | 'tar1'
+  | 'tar2'
+  | 'tar3'
+  | 'tar4'
+  | 'link1'
+  | 'link2';
+
+export interface Status {
   job:
     | 'gunbreaker'
     | 'darkknight'
@@ -10,24 +19,20 @@ interface Status {
     | 'reaper'
     | 'dancer'
     | 'summoner';
-  marker:
-    | 'none'
-    | 'attack1'
-    | 'attack2'
-    | 'attack3'
-    | 'attack4'
-    | 'chain1'
-    | 'chain2';
+  marker: MarkerType;
 }
 
 interface StatusState {
   practiceStatus: Status[];
+  assignMarker: (index: StatusIndex, marker: MarkerType) => void;
 }
+
+export type StatusIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 const defaultStatus: Status[] = [
   {
     job: 'gunbreaker',
-    marker: 'none',
+    marker: 'tar2',
   },
   {
     job: 'darkknight',
@@ -59,8 +64,14 @@ const defaultStatus: Status[] = [
   },
 ];
 
-const usePracticeState = create<StatusState>((set) => {
+export const usePracticeState = create<StatusState>((set, get) => {
   return {
     practiceStatus: defaultStatus,
+    assignMarker: (index: StatusIndex, marker: MarkerType) => {
+      set((state) => {
+        console.log(state);
+        return state;
+      });
+    },
   };
 });
