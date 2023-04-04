@@ -1,8 +1,8 @@
-import { StatusIndex, usePracticeState } from '../stores/practiceStore';
+import { StatusIndex, usePracticeStore } from '../stores/practiceStore';
 import { RowContent } from './RowContent';
 
 export function PracticeContent() {
-  const practiceState = usePracticeState((state) => state.practiceStatus);
+  const practiceState = usePracticeStore((state) => state.practiceStatus);
 
   return (
     <div className="flex flex-col items-center pt-10 ">

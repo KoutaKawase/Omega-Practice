@@ -32,7 +32,7 @@ export type StatusIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 const defaultStatus: Status[] = [
   {
     job: 'gunbreaker',
-    marker: 'tar2',
+    marker: 'none',
   },
   {
     job: 'darkknight',
@@ -64,7 +64,7 @@ const defaultStatus: Status[] = [
   },
 ];
 
-export const usePracticeState = create<StatusState>((set, get) => {
+export const usePracticeStore = create<StatusState>((set) => {
   return {
     practiceStatus: defaultStatus,
     assignMarker: (index: StatusIndex, marker: MarkerType) => {
