@@ -4,7 +4,7 @@ export function MarkerButtons() {
       <div>
         <button
           type="button"
-          className="block h-10 rounded border border-zinc-500 hover:bg-zinc-100"
+          className="block h-10 rounded border border-zinc-500 hover:bg-neutral-700"
         >
           <img
             src="https://cdn.raidplan.io/game/ffxiv/mark/mark_tar1.png"
@@ -15,7 +15,7 @@ export function MarkerButtons() {
       <div>
         <button
           type="button"
-          className="block h-10 rounded border border-zinc-500 hover:bg-zinc-100"
+          className="block h-10 rounded border border-zinc-500 hover:bg-neutral-700"
         >
           <img
             src="https://cdn.raidplan.io/game/ffxiv/mark/mark_link1.png"

@@ -1,15 +1,11 @@
-import { isMobile } from '../utils/isMobile';
 import { PracticeContent } from './PracticeContent';
 
-function NoSupport() {
-  return <p>Mobile is currently not supported</p>;
-}
-
 function App() {
-  if (isMobile()) {
-    return <NoSupport />;
-  }
-  return <PracticeContent />;
+  return (
+    <div className="h-screen	 bg-neutral-900">
+      <PracticeContent />
+    </div>
+  );
 }
 
 export default App;

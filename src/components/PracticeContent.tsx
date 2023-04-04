@@ -2,7 +2,7 @@ import { RowContent } from './RowContent';
 
 export function PracticeContent() {
   return (
-    <div className="mt-10 flex flex-col items-center">
+    <div className="flex flex-col items-center pt-10 ">
       <div>
         <RowContent job="gunbreaker" />
         <RowContent job="darkknight" />
