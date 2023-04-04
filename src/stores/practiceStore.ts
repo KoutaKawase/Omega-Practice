@@ -69,8 +69,10 @@ export const usePracticeState = create<StatusState>((set, get) => {
     practiceStatus: defaultStatus,
     assignMarker: (index: StatusIndex, marker: MarkerType) => {
       set((state) => {
-        console.log(state);
-        return state;
+        const deepCopied: Status[] = structuredClone(state.practiceStatus);
+        deepCopied[index].marker = marker;
+
+        return { ...state, practiceStatus: deepCopied };
       });
     },
   };
