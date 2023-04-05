@@ -2,7 +2,7 @@ import { FixedDebuff } from './FixedDebuff';
 
 export function DebufContainer() {
   return (
-    <div className="ml-1 flex w-52">
+    <div className="ml-1 flex w-72">
       <div className="relative h-10">
         <img
           src="https://xivapi.com/i/015000/015145_hr1.png"

@@ -28,9 +28,13 @@ interface StatusState {
   linkCount: number;
   assignMarker: (index: StatusIndex, marker: MarkerType) => void;
   incrementTar: () => void;
+  incrementLink: () => void;
 }
 
 export type StatusIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+export const LINK_COUNT_LIMIT = 3;
+export const TAR_COUNT_LIMIT = 5;
 
 const defaultStatus: Status[] = [
   {
@@ -77,10 +81,6 @@ export const usePracticeStore = create<StatusState>((set, get) => {
     tarCount: 1,
     linkCount: 1,
     assignMarker: (index: StatusIndex, marker: MarkerType) => {
-      const statuses = get().practiceStatus;
-
-      if (existsTar4(statuses)) return;
-
       set((state) => {
         const deepCopied: Status[] = structuredClone(state.practiceStatus);
         deepCopied[index].marker = marker;
@@ -89,12 +89,21 @@ export const usePracticeStore = create<StatusState>((set, get) => {
       });
     },
     incrementTar: () => {
-      if (get().tarCount >= 4) {
+      if (get().tarCount >= 5) {
         return;
       }
 
       set((state) => {
         return { ...state, tarCount: state.tarCount + 1 };
+      });
+    },
+    incrementLink: () => {
+      if (get().linkCount >= 3) {
+        return;
+      }
+
+      set((state) => {
+        return { ...state, linkCount: state.linkCount + 1 };
       });
     },
   };

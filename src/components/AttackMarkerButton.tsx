@@ -1,8 +1,10 @@
 import {
   MarkerType,
   StatusIndex,
+  TAR_COUNT_LIMIT,
   usePracticeStore,
 } from '../stores/practiceStore';
+import { calclateImgSrc } from '../utils/utils';
 
 interface Props {
   index: StatusIndex;
@@ -15,8 +17,11 @@ export function AttackMarkerButton(props: Props) {
     state.incrementTar,
   ]);
   const statusIndex = props.index;
+  const imgSrc = calclateImgSrc(tarCount, 'tar');
 
-  function handleClick() {
+  function handleTarClick() {
+    if (tarCount === TAR_COUNT_LIMIT) return;
+
     assignAttackMarker(statusIndex, `tar${tarCount}` as MarkerType);
     incrementTar();
   }
@@ -26,14 +31,10 @@ export function AttackMarkerButton(props: Props) {
       <button
         type="button"
         className="block h-10 rounded border border-zinc-500 hover:bg-neutral-700"
-        onClick={() => handleClick()}
+        onClick={() => handleTarClick()}
       >
-        <img
-          src={`https://cdn.raidplan.io/game/ffxiv/mark/mark_tar${tarCount}.png`}
-          className="h-full max-w-full scale-90"
-        />
+        <img src={imgSrc} className="h-full max-w-full scale-90" />
       </button>
-      <span className="text-white">count: {tarCount}</span>
     </div>
   );
 }
