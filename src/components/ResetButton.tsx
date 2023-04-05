@@ -17,7 +17,7 @@ export function ResetButton() {
         type="button"
         onClick={() => handleResetClick()}
       >
-        RESET
+        RUN
       </button>
     </div>
   );
