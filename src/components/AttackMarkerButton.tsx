@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { StatusIndex, usePracticeStore } from '../stores/practiceStore';
-import { useMarkerCountStore } from '../stores/markerCountStore';
+import {
+  MarkerType,
+  StatusIndex,
+  usePracticeStore,
+} from '../stores/practiceStore';
 
 interface Props {
   index: StatusIndex;
@@ -8,15 +10,15 @@ interface Props {
 
 export function AttackMarkerButton(props: Props) {
   const assignAttackMarker = usePracticeStore((state) => state.assignMarker);
-  const [incrementAttack, count] = useMarkerCountStore((state) => [
-    state.incrementAttack,
-    state.tar,
+  const [tarCount, incrementTar] = usePracticeStore((state) => [
+    state.tarCount,
+    state.incrementTar,
   ]);
   const statusIndex = props.index;
 
   function handleClick() {
-    assignAttackMarker(statusIndex, 'tar1');
-    incrementAttack();
+    assignAttackMarker(statusIndex, `tar${tarCount}` as MarkerType);
+    incrementTar();
   }
 
   return (
@@ -27,10 +29,11 @@ export function AttackMarkerButton(props: Props) {
         onClick={() => handleClick()}
       >
         <img
-          src={`https://cdn.raidplan.io/game/ffxiv/mark/mark_tar1.png`}
+          src={`https://cdn.raidplan.io/game/ffxiv/mark/mark_tar${tarCount}.png`}
           className="h-full max-w-full scale-90"
         />
       </button>
+      <span className="text-white">count: {tarCount}</span>
     </div>
   );
 }
