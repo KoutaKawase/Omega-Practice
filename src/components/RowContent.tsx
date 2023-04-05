@@ -14,7 +14,11 @@ export function RowContent({ status, index }: Props) {
     <div className="my-0.5 flex items-center justify-center">
       <Marker marker={status.marker} />
       <JobIcon job={status.job} />
-      <DebufContainer />
+      <DebufContainer
+        dynamis={status.dynamis}
+        dice={status.dice}
+        helloWorld={status.helloWorld}
+      />
       <MarkerButtons index={index} />
     </div>
   );
