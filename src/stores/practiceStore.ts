@@ -34,11 +34,15 @@ interface StatusState {
   practiceStatus: Status[];
   tarCount: number;
   linkCount: number;
+  isRunngingTimer: boolean;
+  timer: number;
   assignMarker: (index: StatusIndex, marker: MarkerType) => void;
   incrementTar: () => void;
   incrementLink: () => void;
   resetMarker: () => void;
   changeDebuffs: () => void;
+  setIsRunningTimer: (isRunning: boolean) => void;
+  setPracticeTimer: () => void;
 }
 
 export type StatusIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -112,6 +116,8 @@ export const usePracticeStore = create<StatusState>((set, get) => {
     practiceStatus: defaultStatus,
     tarCount: DEFAULT_TAR_COUNT,
     linkCount: DEFAULT_LINK_COUNT,
+    isRunngingTimer: false,
+    timer: 0,
     assignMarker: (index: StatusIndex, marker: MarkerType) => {
       set((state) => {
         const deepCopied: Status[] = structuredClone(state.practiceStatus);
@@ -173,6 +179,16 @@ export const usePracticeStore = create<StatusState>((set, get) => {
         }
 
         return { ...state, practiceStatus: copiedPracticeStatus };
+      });
+    },
+    setIsRunningTimer: (isRunning: boolean) => {
+      set((state) => {
+        return { ...state, isRunngingTimer: isRunning };
+      });
+    },
+    setPracticeTimer: () => {
+      set((state) => {
+        return { ...state, timer: state.timer + 1 };
       });
     },
   };
