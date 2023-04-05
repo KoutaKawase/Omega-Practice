@@ -10,6 +10,7 @@ export function Timer() {
     state.timer,
     state.setPracticeTimer,
   ]);
+  const markerCount = usePracticeStore((state) => state.markerCount);
 
   useEffect(() => {
     let interval: number;
@@ -22,7 +23,7 @@ export function Timer() {
   }, [isRunngingTimer]);
 
   return (
-    <div>
+    <div className="mt-10">
       <div className="text-white">経過時間: {practiceTimer}秒</div>
     </div>
   );
