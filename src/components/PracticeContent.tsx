@@ -1,6 +1,7 @@
 import { StatusIndex, usePracticeStore } from '../stores/practiceStore';
 import { ResetButton } from './ResetButton';
 import { RowContent } from './RowContent';
+import { Timer } from './Timer';
 
 export function PracticeContent() {
   const practiceState = usePracticeStore((state) => state.practiceStatus);
@@ -18,6 +19,8 @@ export function PracticeContent() {
           );
         })}
       </div>
+
+      <Timer />
 
       <ResetButton />
     </div>

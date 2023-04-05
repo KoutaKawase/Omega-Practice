@@ -1,14 +1,18 @@
 import { usePracticeStore } from '../stores/practiceStore';
 
 export function ResetButton() {
-  const [resetMarker, changeDebuffs] = usePracticeStore((state) => [
-    state.resetMarker,
-    state.changeDebuffs,
-  ]);
+  const [resetMarker, changeDebuffs, setIsRunningTimer] = usePracticeStore(
+    (state) => [
+      state.resetTimerAndMarker,
+      state.changeDebuffs,
+      state.setIsRunningTimer,
+    ]
+  );
 
   function handleResetClick() {
     resetMarker();
     changeDebuffs();
+    setIsRunningTimer(true);
   }
   return (
     <div className="mt-20">
