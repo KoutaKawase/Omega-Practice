@@ -32,6 +32,7 @@ export interface Status {
 
 interface StatusState {
   practiceStatus: Status[];
+  markerCount: number;
   tarCount: number;
   linkCount: number;
   isRunngingTimer: boolean;
@@ -39,7 +40,7 @@ interface StatusState {
   assignMarker: (index: StatusIndex, marker: MarkerType) => void;
   incrementTar: () => void;
   incrementLink: () => void;
-  resetMarker: () => void;
+  resetTimerAndMarker: () => void;
   changeDebuffs: () => void;
   setIsRunningTimer: (isRunning: boolean) => void;
   setPracticeTimer: () => void;
@@ -114,6 +115,7 @@ const defaultStatus: Status[] = [
 export const usePracticeStore = create<StatusState>((set, get) => {
   return {
     practiceStatus: defaultStatus,
+    markerCount: 0,
     tarCount: DEFAULT_TAR_COUNT,
     linkCount: DEFAULT_LINK_COUNT,
     isRunngingTimer: false,
@@ -123,7 +125,17 @@ export const usePracticeStore = create<StatusState>((set, get) => {
         const deepCopied: Status[] = structuredClone(state.practiceStatus);
         deepCopied[index].marker = marker;
 
-        return { ...state, practiceStatus: deepCopied };
+        return {
+          ...state,
+          practiceStatus: deepCopied,
+          markerCount: state.markerCount + 1,
+        };
+      });
+      set((state) => {
+        if (state.markerCount === 6) {
+          return { ...state, isRunngingTimer: false };
+        }
+        return { ...state };
       });
     },
     incrementTar: () => {
@@ -144,7 +156,7 @@ export const usePracticeStore = create<StatusState>((set, get) => {
         return { ...state, linkCount: state.linkCount + 1 };
       });
     },
-    resetMarker: () => {
+    resetTimerAndMarker: () => {
       set((state) => {
         const deepCopied: Status[] = structuredClone(state.practiceStatus);
         deepCopied.forEach((status) => (status.marker = 'none'));
@@ -154,6 +166,8 @@ export const usePracticeStore = create<StatusState>((set, get) => {
           practiceStatus: deepCopied,
           tarCount: DEFAULT_TAR_COUNT,
           linkCount: DEFAULT_LINK_COUNT,
+          timer: 0,
+          markerCount: 0,
         };
       });
     },
