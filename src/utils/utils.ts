@@ -1,4 +1,8 @@
-import { LINK_COUNT_LIMIT, TAR_COUNT_LIMIT } from '../stores/practiceStore';
+import {
+  LINK_COUNT_LIMIT,
+  Status,
+  TAR_COUNT_LIMIT,
+} from '../stores/practiceStore';
 
 export function calclateImgSrc(count: number, prefix: 'link' | 'tar') {
   const srcTemplate = 'https://cdn.raidplan.io/game/ffxiv/mark/';
@@ -13,4 +17,8 @@ export function calclateImgSrc(count: number, prefix: 'link' | 'tar') {
   }
 
   return srcTemplate + pngTemplate;
+}
+
+export function existsMarkerIn(targer: Status) {
+  return targer.marker !== 'none';
 }

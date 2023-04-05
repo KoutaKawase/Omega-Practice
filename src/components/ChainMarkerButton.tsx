@@ -4,23 +4,26 @@ import {
   StatusIndex,
   usePracticeStore,
 } from '../stores/practiceStore';
-import { calclateImgSrc } from '../utils/utils';
+import { calclateImgSrc, existsMarkerIn } from '../utils/utils';
 
 interface Props {
   index: StatusIndex;
 }
 
-export function ChainMarkerButton(props: Props) {
+export function ChainMarkerButton({ index: statusIndex }: Props) {
   const assignAttackMarker = usePracticeStore((state) => state.assignMarker);
-  const [linkCount, incrementLink] = usePracticeStore((state) => [
-    state.linkCount,
-    state.incrementLink,
-  ]);
-  const statusIndex = props.index;
+  const [linkCount, incrementLink, existsMarkerOnMe] = usePracticeStore(
+    (state) => [
+      state.linkCount,
+      state.incrementLink,
+      existsMarkerIn(state.practiceStatus[statusIndex]),
+    ]
+  );
   const imgSrc = calclateImgSrc(linkCount, 'link');
 
   function handleLinkClick() {
-    if (linkCount === LINK_COUNT_LIMIT) return;
+    //自分の場所に既に何かマーカーが置かれてたらマーカーを置けないようにする あるいはカウント3になってたらなにもさせない
+    if (linkCount === LINK_COUNT_LIMIT || existsMarkerOnMe) return;
 
     assignAttackMarker(statusIndex, `link${linkCount}` as MarkerType);
 

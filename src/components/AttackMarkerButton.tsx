@@ -4,23 +4,26 @@ import {
   TAR_COUNT_LIMIT,
   usePracticeStore,
 } from '../stores/practiceStore';
-import { calclateImgSrc } from '../utils/utils';
+import { calclateImgSrc, existsMarkerIn } from '../utils/utils';
 
 interface Props {
   index: StatusIndex;
 }
 
-export function AttackMarkerButton(props: Props) {
+export function AttackMarkerButton({ index: statusIndex }: Props) {
   const assignAttackMarker = usePracticeStore((state) => state.assignMarker);
-  const [tarCount, incrementTar] = usePracticeStore((state) => [
-    state.tarCount,
-    state.incrementTar,
-  ]);
-  const statusIndex = props.index;
+  const [tarCount, incrementTar, existsMarkerOnMe] = usePracticeStore(
+    (state) => [
+      state.tarCount,
+      state.incrementTar,
+      existsMarkerIn(state.practiceStatus[statusIndex]),
+    ]
+  );
   const imgSrc = calclateImgSrc(tarCount, 'tar');
 
   function handleTarClick() {
-    if (tarCount === TAR_COUNT_LIMIT) return;
+    //自分の場所に既に何かマーカーが置かれてたらマーカーを置けないようにする あるいはカウント5になってたら何もさせない
+    if (tarCount === TAR_COUNT_LIMIT || existsMarkerOnMe) return;
 
     assignAttackMarker(statusIndex, `tar${tarCount}` as MarkerType);
     incrementTar();

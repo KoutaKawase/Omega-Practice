@@ -71,10 +71,6 @@ const defaultStatus: Status[] = [
   },
 ];
 
-function existsTar4(statuses: Status[]) {
-  return statuses.some((status) => status.marker === 'tar4');
-}
-
 export const usePracticeStore = create<StatusState>((set, get) => {
   return {
     practiceStatus: defaultStatus,
