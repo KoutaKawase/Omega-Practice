@@ -7,7 +7,7 @@ export function PracticeContent() {
   const practiceState = usePracticeStore((state) => state.practiceStatus);
 
   return (
-    <div className="flex flex-col items-center pt-10 ">
+    <div className='flex flex-col items-center pt-10 '>
       <div>
         {practiceState.map((status, index) => {
           return (
@@ -23,6 +23,8 @@ export function PracticeContent() {
       <Timer />
 
       <ResetButton />
+
+      <p className='text-white'>止めたかったらページ更新</p>
     </div>
   );
 }
